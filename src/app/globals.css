@@ -76,6 +76,16 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+  --primary: #0c5c55;
+  --primary-light: #34a49f;
+  --secondary: #6b7280;
+  --background: #f9fafb;
+  --card: #ffffff;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --text-primary: #111827;
+  --text-secondary: #374151;
 }
 
 .dark {
