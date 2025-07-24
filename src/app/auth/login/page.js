@@ -1,17 +1,47 @@
 "use client";
 
-import { useState } from "react";
+import { useState ,useEffect } from "react";
 import axios from "axios";
 import AuthForm from "@/components/AuthForm";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
+  const [checkingAuth, setCheckingAuth] = useState(true);
   const router = useRouter();
+  
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8050/api/v1/user/current-user-profile",
+          {
+            withCredentials: true,
+          }
+        );
+
+        if (res.data?.data) {
+          // User is logged in
+          router.replace("/"); // redirect to homepage
+        } else {
+          setCheckingAuth(false);
+        }
+      } catch (err) {
+        // Not logged in
+        setCheckingAuth(false);
+      }
+    };
+
+    checkAuth();
+  }, [router]);
+
+  if (checkingAuth) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();

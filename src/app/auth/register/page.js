@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,6 +15,33 @@ export default function RegisterPage() {
   });
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8050/api/v1/user/current-user-profile",
+          {
+            withCredentials: true,
+          }
+        );
+
+        if (res.data?.data) {
+          // User is logged in
+          router.replace("/"); // redirect to homepage
+        } else {
+          setCheckingAuth(false);
+        }
+      } catch (err) {
+        // Not logged in
+        setCheckingAuth(false);
+      }
+    };
+
+    checkAuth();
+  }, [router]);
+
+  if (checkingAuth) return null;
 
   const handleChange = (e) => {
     if (e.target.name === "avatar") {
@@ -54,10 +81,33 @@ export default function RegisterPage() {
         <h2 className="text-2xl font-semibold text-primary text-center">
           Register
         </h2>
-        <Input name="fullName" placeholder="Full Name" onChange={handleChange} required />
-        <Input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-        <Input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-        <Input type="file" name="avatar" accept="image/*" onChange={handleChange} required />
+        <Input
+          name="fullName"
+          placeholder="Full Name"
+          onChange={handleChange}
+          required
+        />
+        <Input
+          type="email"
+          name="email"
+          placeholder="Email"
+          onChange={handleChange}
+          required
+        />
+        <Input
+          type="password"
+          name="password"
+          placeholder="Password"
+          onChange={handleChange}
+          required
+        />
+        <Input
+          type="file"
+          name="avatar"
+          accept="image/*"
+          onChange={handleChange}
+          required
+        />
         <Button className="w-full bg-primary text-white" disabled={loading}>
           {loading ? "Registering..." : "Register"}
         </Button>
