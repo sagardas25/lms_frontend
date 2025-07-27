@@ -14,6 +14,7 @@ export default function RegisterPage() {
     avatar: null,
   });
   const [loading, setLoading] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
