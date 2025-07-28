@@ -75,7 +75,9 @@ export default function Navbar() {
         <div className="fixed inset-0 bg-background/30 backdrop-blur-xs z-40 md:hidden" />
       )}
 
-      <header className="bg-background border-b shadow-sm fixed top-0 left-0 right-0 z-50">
+      <header className="bg-background border-b shadow-sm fixed top-0 left-0 right-0 z-50 group">
+        <div className="absolute top-[-6rem] left-[-6rem] w-[30rem] h-[30rem] bg-[#1E3A8A]   opacity-10 rounded-full blur-[120px] mix-blend-multiply animate-blob-fast transition duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-60"></div>
+        <div className="absolute bottom-[-6rem] right-[-6rem] w-[30rem] h-[30rem] bg-[#1E3A8A] opacity-20 rounded-full blur-[120px] mix-blend-multiply animate-blob-slow transition duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-60"></div>
         <nav className="max-w-screen-xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between relative">
           {/* Logo */}
           <Link href="/" className="text-2xl font-bold text-primary">
@@ -95,8 +97,9 @@ export default function Navbar() {
           <div
             className={`${
               isMenuOpen ? "flex" : "hidden"
-            } md:flex flex-col md:flex-row md:items-center gap-4 md:gap-6 absolute md:static top-16 left-0 w-full md:w-auto bg-background px-6 md:px-0 py-4 md:py-0 shadow md:shadow-none transition-all duration-300 z-50`}
+            } md:flex flex-col  md:flex-row md:items-center gap-4 md:gap-6 absolute md:static top-16 left-0 w-full md:w-auto  px-6 md:px-0 py-4 md:py-0 shadow md:shadow-none transition-all duration-300 z-50`}
           >
+
             <NavLink href="/" label="Home" />
             <NavLink href="/student/course" label="Courses" />
 

@@ -6,7 +6,10 @@ import Image from "next/image";
 
 export default function HomePage() {
   return (
-    <main className="bg-[#f7fdfc] text-[#0c5c55]">
+    <main className="bg-[#f7fdfc] text-[#0c5c55] group">
+      <div className="absolute top-[-6rem] left-[-6rem] w-[30rem] h-[30rem] bg-[rgb(12,92,85)]  opacity-10 rounded-full blur-[120px] mix-blend-multiply animate-blob-fast transition duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-60"></div>
+      <div className="absolute bottom-[-6rem] right-[-6rem] w-[30rem] h-[30rem] bg-[rgb(12,92,85)]  opacity-20 rounded-full blur-[120px] mix-blend-multiply animate-blob-slow transition duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-60"></div>
+
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 grid grid-cols-1 md:grid-cols-2 gap-16 items-center min-h-screen">
         {/* Text Section */}
         <div className="space-y-6 text-center md:text-left">
