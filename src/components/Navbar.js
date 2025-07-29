@@ -68,7 +68,8 @@ export default function Navbar() {
     </Link>
   );
 
-  const isAuthRoute = pathname.startsWith("/auth");
+  const isAuthOrHomeRoute = (pathname === "/" || pathname.startsWith("/auth"));
+
 
   return (
     <>
@@ -78,7 +79,7 @@ export default function Navbar() {
       )}
 
       <header className="bg-background border-b shadow-sm fixed top-0 left-0 right-0 z-50 group">
-        {isAuthRoute && (
+        {isAuthOrHomeRoute && (
           <>
             <div className="absolute top-[-6rem] left-[-6rem] w-[30rem] h-[30rem] bg-[#1E3A8A]   opacity-10 rounded-full blur-[120px] mix-blend-multiply animate-blob transition duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-60"></div>
             <div className="absolute bottom-[-6rem] right-[-6rem] w-[30rem] h-[30rem] bg-[#1E3A8A] opacity-20 rounded-full blur-[120px] mix-blend-multiply animate-blob transition duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-60"></div>
