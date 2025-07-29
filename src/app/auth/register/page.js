@@ -76,7 +76,8 @@ export default function RegisterPage() {
         {/* Lottie */}
         <div className="hidden lg:flex flex-1 items-center justify-center">
           <Player
-            src="https://lottie.host/16634aab-1f36-4ab9-acec-b604846b1fa4/hkJYGxwafl.json"
+            //src="https://lottie.host/16634aab-1f36-4ab9-acec-b604846b1fa4/hkJYGxwafl.json"
+            src="/animation/register.json"
             autoplay
             loop
             style={{ width: "90%", maxWidth: "450px" }}
@@ -90,7 +91,9 @@ export default function RegisterPage() {
           </h1>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-              <Label htmlFor="fullName" className="pb-1">Full Name</Label>
+              <Label htmlFor="fullName" className="pb-1">
+                Full Name
+              </Label>
               <Input
                 name="fullName"
                 value={form.fullName}
@@ -100,7 +103,9 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <Label htmlFor="gender" className="pb-1">Gender</Label>
+              <Label htmlFor="gender" className="pb-1">
+                Gender
+              </Label>
               <Select
                 onValueChange={(val) => handleSelectChange("gender", val)}
               >
@@ -128,7 +133,9 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <Label htmlFor="phoneNumber" className="pb-1">Phone Number</Label>
+              <Label htmlFor="phoneNumber" className="pb-1">
+                Phone Number
+              </Label>
               <Input
                 name="phoneNumber"
                 value={form.phoneNumber}
@@ -138,7 +145,9 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <Label htmlFor="email" className="pb-1">Email</Label>
+              <Label htmlFor="email" className="pb-1">
+                Email
+              </Label>
               <Input
                 type="email"
                 name="email"
@@ -149,7 +158,9 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <Label htmlFor="password" className="pb-1">Password</Label>
+              <Label htmlFor="password" className="pb-1">
+                Password
+              </Label>
               <Input
                 type="password"
                 name="password"

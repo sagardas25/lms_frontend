@@ -6,7 +6,6 @@
 // import { Button } from "@/components/ui/button";
 // import { useRouter } from "next/navigation";
 
-
 // export default function LoginPage() {
 //   const [email, setEmail] = useState("");
 //   const [password, setPassword] = useState("");
@@ -14,7 +13,6 @@
 //   const [msg, setMsg] = useState("");
 //   const [checkingAuth, setCheckingAuth] = useState(true);
 //   const router = useRouter();
-  
 
 //   useEffect(() => {
 //     const checkAuth = async () => {
@@ -103,7 +101,6 @@
 //   );
 // }
 
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -173,7 +170,8 @@ export default function LoginPage() {
         {/* Lottie */}
         <div className="hidden lg:flex flex-1 items-center justify-center">
           <Player
-            src="https://lottie.host/d81a46f5-7641-422d-8253-ca30d3321ab0/xVRM7P6Px8.json"
+            // src="https://lottie.host/d81a46f5-7641-422d-8253-ca30d3321ab0/xVRM7P6Px8.json"
+            src="/animation/login.json"
             autoplay
             loop
             style={{ width: "90%", maxWidth: "450px" }}
@@ -187,7 +185,9 @@ export default function LoginPage() {
           </h1>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Label htmlFor="email" className="pb-1">Email</Label>
+              <Label htmlFor="email" className="pb-1">
+                Email
+              </Label>
               <Input
                 type="email"
                 name="email"
@@ -198,7 +198,9 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <Label htmlFor="password" className="pb-1">Password</Label>
+              <Label htmlFor="password" className="pb-1">
+                Password
+              </Label>
               <Input
                 type="password"
                 name="password"
