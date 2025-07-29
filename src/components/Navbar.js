@@ -121,7 +121,7 @@ export default function Navbar() {
               <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto">
                 <Button
                   variant="ghost"
-                  className="text-primary w-full md:w-auto"
+                  className="text-primary w-full md:w-auto hover:bg-[#10b981a9]"
                   onClick={() => {
                     router.push("/auth/login");
                     setIsMenuOpen(false);
