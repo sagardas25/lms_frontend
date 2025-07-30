@@ -6,12 +6,12 @@ import { Player } from "@lottiefiles/react-lottie-player";
 
 export default function HomePage() {
   return (
-    <main className="bg-[#f7fdfc] text-[#0c5c55] group">
+    <main className="relative bg-[#f7fdfc] text-[#0c5c55] group overflow-hidden">
       {/* Blobs */}
-      <div className="absolute top-[-6rem] left-[-6rem] w-[30rem] h-[30rem] bg-[rgb(12,92,85)] opacity-10 rounded-full blur-[120px] mix-blend-multiply animate-blob-fast transition duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-60"></div>
-      <div className="absolute bottom-[-6rem] right-[-6rem] w-[30rem] h-[30rem] bg-[rgb(12,92,85)] opacity-20 rounded-full blur-[120px] mix-blend-multiply animate-blob-slow transition duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-60"></div>
+      <div className="absolute top-[-6rem] left-[-6rem] w-[30rem] h-[30rem] bg-[rgb(12,92,85)] opacity-10 rounded-full blur-[120px] mix-blend-multiply animate-blob-fast transition duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-60 pointer-events-none z-0" />
+      <div className="absolute bottom-[-6rem] right-[-6rem] w-[30rem] h-[30rem] bg-[rgb(12,92,85)] opacity-20 rounded-full blur-[120px] mix-blend-multiply animate-blob-slow transition duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-60 pointer-events-none z-0" />
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 grid grid-cols-1 md:grid-cols-2 gap-16 items-center min-h-screen">
+      <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 grid grid-cols-1 md:grid-cols-2 gap-16 items-center min-h-screen">
         {/* Text Section */}
         <div className="space-y-6 text-center md:text-left">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
@@ -45,11 +45,10 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Lottie Animation Section */}
-        <div className="flex justify-center">
+        {/* Lottie Animation Section - Hidden on Mobile */}
+        <div className="hidden md:flex justify-center">
           <Player
-           // src="https://lottie.host/f48d55ce-59a4-4b52-b835-3a1520bf521a/7QhjFSIFXC.json"
-            src = "/animation/home.json"
+            src="/animation/home.json"
             autoplay
             loop
             className="w-full max-w-sm sm:max-w-md md:max-w-lg h-auto"
