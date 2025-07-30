@@ -154,6 +154,11 @@ export default function LoginPage() {
       toast.success("Login successful!");
       window.location.href = "/";
     } catch (err) {
+      console.log(
+        "err.response.headers['content-type']:",
+        err?.response?.headers["content-type"]
+      );
+      //console.log("err", err?.response?.data);
       toast.error(err?.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
@@ -161,12 +166,12 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="relative flex-grow flex items-center justify-center bg-gradient-to-br h-[100vh] from-slate-100 to-white overflow-hidden pt-20 group">
+    <div className="relative flex-grow flex items-center justify-center h-[100vh] bg-gradient-to-br  from-slate-100 to-white overflow-hidden pt-0 group">
       {/* Blobs */}
       <div className="absolute top-[-6rem] left-[-6rem] w-[30rem] h-[30rem] bg-[#0c5c55] opacity-10 rounded-full blur-[120px] mix-blend-multiply animate-blob-fast transition duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-60"></div>
       <div className="absolute bottom-[-6rem] right-[-6rem] w-[30rem] h-[30rem] bg-[#0c5c55] opacity-20 rounded-full blur-[120px] mix-blend-multiply animate-blob-slow transition duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-60"></div>
 
-      <div className="z-10 w-full max-w-screen-xl px-4 md:px-10 flex flex-col lg:flex-row items-center justify-between h-full py-12 pt-2">
+      <div className="z-10 w-full max-w-screen-xl px-4 md:px-10 flex flex-col lg:flex-row items-center justify-between">
         {/* Lottie */}
         <div className="hidden lg:flex flex-1 items-center justify-center">
           <Player

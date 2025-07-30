@@ -67,12 +67,12 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="relative flex-grow flex items-center justify-center bg-gradient-to-br from-slate-100 to-white overflow-hidden pt-20 group">
+    <div className="relative flex-grow flex items-center h-[100vh] justify-center bg-gradient-to-br from-slate-100 to-white overflow-hidden pt-20 group">
       {/* Blobs */}
       <div className="absolute top-[-6rem] left-[-6rem] w-[30rem] h-[30rem] bg-[#0c5c55]  opacity-10 rounded-full blur-[120px] mix-blend-multiply animate-blob-fast transition duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-60"></div>
       <div className="absolute bottom-[-6rem] right-[-6rem] w-[30rem] h-[30rem] bg-[#0c5c55] opacity-20 rounded-full blur-[120px] mix-blend-multiply animate-blob-slow transition duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-60"></div>
 
-      <div className="z-10 w-full max-w-screen-xl px-4 md:px-10 flex flex-col lg:flex-row items-center justify-between h-full py-12 pt-2">
+      <div className="z-10 w-full max-w-screen-xl px-4 md:px-10 flex flex-col lg:flex-row items-center justify-between pb-12 pt-0 md:pt-10">
         {/* Lottie */}
         <div className="hidden lg:flex flex-1 items-center justify-center">
           <Player

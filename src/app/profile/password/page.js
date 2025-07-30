@@ -5,6 +5,8 @@ import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import Image from "next/image";
+// import bgBlob from "@/public/blob-bg.svg"; // You can use the same blob SVG as in login/register
 
 export default function UpdatePasswordPage() {
   const [formData, setFormData] = useState({
@@ -52,14 +54,26 @@ export default function UpdatePasswordPage() {
   };
 
   return (
-    <section className="w-full px-4 py-8 pt-1 md:py-12 md:pt-0 md:pl-2">
-      <div className="max-w-2xl mx-auto bg-card p-6 md:p-8 rounded-lg shadow-sm border border-border">
-        <h2 className="text-2xl font-bold text-primary mb-6">
+    <section className="relative min-h-screen w-full flex items-center justify-center bg-[#f7fdfc] overflow-hidden">
+      {/* Background Blob */}
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src={bgBlob}
+          alt="Background"
+          className="object-cover w-full h-full opacity-50"
+          priority
+        />
+        <div className="absolute inset-0 bg-white/50 backdrop-blur-sm" />
+      </div>
+
+      {/* Form Card */}
+      <div className="w-full max-w-md bg-white/60 backdrop-blur-lg border border-border rounded-xl shadow-lg p-6 sm:p-8">
+        <h2 className="text-2xl sm:text-3xl font-semibold text-center text-[#0c5c55] mb-6">
           Update Your Password
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          <div className="flex flex-col gap-1">
+          <div className="space-y-2">
             <label htmlFor="oldPassword" className="text-sm font-medium text-muted-foreground">
               Current Password
             </label>
@@ -74,7 +88,7 @@ export default function UpdatePasswordPage() {
             />
           </div>
 
-          <div className="flex flex-col gap-1">
+          <div className="space-y-2">
             <label htmlFor="newPassword" className="text-sm font-medium text-muted-foreground">
               New Password
             </label>
@@ -89,7 +103,7 @@ export default function UpdatePasswordPage() {
             />
           </div>
 
-          <div className="flex flex-col gap-1">
+          <div className="space-y-2">
             <label htmlFor="confirmPassword" className="text-sm font-medium text-muted-foreground">
               Confirm New Password
             </label>
@@ -107,7 +121,7 @@ export default function UpdatePasswordPage() {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full md:w-auto"
+            className="w-full mt-2"
           >
             {loading ? "Updating..." : "Update Password"}
           </Button>
