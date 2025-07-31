@@ -37,8 +37,8 @@ export default function Navbar() {
       }
     };
 
-    fetchUser();
-  }, []);
+    if (!user) fetchUser();
+  }, [user]);
 
   const handleLogout = async () => {
     try {

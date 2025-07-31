@@ -39,8 +39,8 @@ export default function ProfileLayout({ children }) {
         setLoading(false);
       }
     };
-    fetchMe();
-  }, [router]);
+    if(!user) fetchMe();
+  }, [router , user]);
 
   const handleLogout = async () => {
     try {
