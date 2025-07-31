@@ -117,7 +117,7 @@ export default function ProfileLayout({ children }) {
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 z-10 p-4  md:py-0 md:px-0 mb-2 overflow-hidden ">
+      <main className="flex-1 z-10 p-4  md:py-0 md:px-0 mb-2 md:overflow-hidden ">
         {children}
       </main>
     </div>

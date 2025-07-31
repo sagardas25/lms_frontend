@@ -5,8 +5,7 @@ import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import Image from "next/image";
-// import bgBlob from "@/public/blob-bg.svg"; // You can use the same blob SVG as in login/register
+import { cn } from "@/lib/utils";
 
 export default function UpdatePasswordPage() {
   const [formData, setFormData] = useState({
@@ -31,7 +30,7 @@ export default function UpdatePasswordPage() {
 
     try {
       setLoading(true);
-      await axios.put(
+      await axios.post(
         "http://localhost:8050/api/v1/auth/update-password",
         {
           oldPassword: formData.oldPassword,
@@ -54,33 +53,31 @@ export default function UpdatePasswordPage() {
   };
 
   return (
-    <section className="relative min-h-screen w-full flex items-center justify-center bg-[#f7fdfc] overflow-hidden">
-      {/* Background Blob */}
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src={bgBlob}
-          alt="Background"
-          className="object-cover w-full h-full opacity-50"
-          priority
-        />
-        <div className="absolute inset-0 bg-white/50 backdrop-blur-sm" />
+    <section className="relative min-h-screen bg-white/30 flex items-center justify-center overflow-hidden rounded-lg  my-1 mx-4 sm:px-0">
+      {/* blob */}
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <div className="absolute top-0 left-0 w-72 h-72 bg-gradient-to-br from-[#0c5c55] to-[#7ec8c4] rounded-full blur-[120px] opacity-50" />
+        <div className="absolute bottom-0 right-0 w-72 h-72 bg-gradient-to-br from-[#0c5c55] to-[#7ec8c4] rounded-full blur-[120px] opacity-50" />
       </div>
-
       {/* Form Card */}
-      <div className="w-full max-w-md bg-white/60 backdrop-blur-lg border border-border rounded-xl shadow-lg p-6 sm:p-8">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-center text-[#0c5c55] mb-6">
+      <div className="w-full max-w-2xl bg-white/50  dark:bg-black/30 border border-white/60  rounded-2xl shadow-xl p-6 my-auto sm:p-8">
+        <h2 className="text-3xl font-bold text-center text-[#0c5c55] mb-6">
           Update Your Password
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          <div className="space-y-2">
-            <label htmlFor="oldPassword" className="text-sm font-medium text-muted-foreground">
+          <div className="space-y-1.5">
+            <label
+              htmlFor="oldPassword"
+              className="text-sm font-semibold text-[#0c5c55]"
+            >
               Current Password
             </label>
             <Input
               id="oldPassword"
               name="oldPassword"
               type="password"
+              className="bg-white/80 backdrop-blur border border-white/30"
               placeholder="Enter current password"
               value={formData.oldPassword}
               onChange={handleChange}
@@ -88,14 +85,18 @@ export default function UpdatePasswordPage() {
             />
           </div>
 
-          <div className="space-y-2">
-            <label htmlFor="newPassword" className="text-sm font-medium text-muted-foreground">
+          <div className="space-y-1.5">
+            <label
+              htmlFor="newPassword"
+              className="text-sm font-semibold text-[#0c5c55]"
+            >
               New Password
             </label>
             <Input
               id="newPassword"
               name="newPassword"
               type="password"
+              className="bg-white/80 backdrop-blur border border-white/30"
               placeholder="Enter new password"
               value={formData.newPassword}
               onChange={handleChange}
@@ -103,14 +104,18 @@ export default function UpdatePasswordPage() {
             />
           </div>
 
-          <div className="space-y-2">
-            <label htmlFor="confirmPassword" className="text-sm font-medium text-muted-foreground">
+          <div className="space-y-1.5">
+            <label
+              htmlFor="confirmPassword"
+              className="text-sm font-semibold text-[#0c5c55]"
+            >
               Confirm New Password
             </label>
             <Input
               id="confirmPassword"
               name="confirmPassword"
               type="password"
+              className="bg-white/80 backdrop-blur border border-white/30"
               placeholder="Re-enter new password"
               value={formData.confirmPassword}
               onChange={handleChange}
@@ -121,7 +126,9 @@ export default function UpdatePasswordPage() {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full mt-2"
+            className={cn(
+              "w-full mt-4 bg-[#0c5c55] hover:bg-[#094741] text-white"
+            )}
           >
             {loading ? "Updating..." : "Update Password"}
           </Button>

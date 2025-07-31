@@ -238,7 +238,7 @@ export default function UpdateProfilePage() {
         <div className="absolute bottom-0 right-0 w-72 h-72 bg-gradient-to-br from-[#0c5c55] to-[#7ec8c4] rounded-full blur-[120px] opacity-50" />
       </div>
 
-      <div className="relative w-full max-w-3xl backdrop-blur-xl bg-white/50 dark:bg-black/30 border border-white/40 rounded-2xl shadow-lg p-6 sm:p-10 space-y-6">
+      <div className="relative w-full max-w-3xl  bg-white/50 dark:bg-black/30 border border-white/40 rounded-2xl shadow-lg p-6 sm:p-10 space-y-6">
         <div className="text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#0c5c55]">
             Update Profile
