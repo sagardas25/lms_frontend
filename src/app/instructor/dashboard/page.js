@@ -1,14 +1,14 @@
-//app/instructor/dashboard/page.js
-"use client";
-
-export default function InstructorDashboardPage() {
+export default function DashboardPage() {
   return (
-    <section className="max-w-4xl mx-auto bg-white/70 backdrop-blur-md shadow-xl rounded-2xl p-8">
-      <h1 className="text-3xl font-bold text-[#0c5c55] mb-6">Welcome Instructor</h1>
-      <p className="text-gray-700 text-sm leading-relaxed">
-        This is your dashboard. From here you can manage your courses, check your stats, and update your profile.
-      </p>
-    </section>
+    <div className=" w-full h-full flex items-center justify-center ">
+      <div className="text-center space-y-4 bg-white/30 p-40 rounded-2xl">
+        <h1 className="text-4xl font-bold text-[#0c5c55]">
+          Welcome Instructor 
+        </h1>
+        <p className="text-lg text-gray-600 max-w-md mx-auto">
+          Manage your courses, sections, and lectures using the navigation menu.
+        </p>
+      </div>
+    </div>
   );
 }
-
