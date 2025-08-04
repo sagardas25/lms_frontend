@@ -18,11 +18,15 @@ import {
 
 const categories = [
   "Web Development",
+  "Mobile Development",
   "Data Science",
+  "Programming Languages",
   "Machine Learning",
-  "Design",
-  "Marketing",
-  "Programming",
+  "AI",
+  "UI/UX Design",
+  "Cybersecurity",
+  "Business",
+  "Other",
 ];
 
 const levels = ["beginner", "intermediate", "advanced"];
@@ -90,20 +94,19 @@ export default function CreateCoursePage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 bg-white/50 p-8 rounded-lg shadow-lg border border-gray-200">
-      {/* Blobs */}
-
+    <div className="max-w-4xl mx-auto mt-10 bg-white/50 p-8 rounded-lg shadow-lg border border-gray-200 ">
       <h2 className="text-3xl font-bold mb-6 text-[#0c5c55] text-center">
         Create New Course
       </h2>
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 "
       >
+        {/* Blobs
         <div className="absolute inset-0 -z-10 pointer-events-none">
           <div className="absolute top-0 left-0 w-72 h-72 bg-gradient-to-br from-[#0c5c55] to-[#7ec8c4] rounded-full blur-[120px] opacity-50" />
           <div className="absolute bottom-0 right-0 w-72 h-72 bg-gradient-to-br from-[#0c5c55] to-[#7ec8c4] rounded-full blur-[120px] opacity-50" />
-        </div>
+        </div> */}
         <div>
           <Label htmlFor="title" className="mb-1">
             Title
