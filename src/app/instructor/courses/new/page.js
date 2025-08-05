@@ -139,7 +139,7 @@ export default function CreateCoursePage() {
           </Label>
           <Textarea
             name="description"
-            className="bg-white/30 border-white/70"
+            className="bg-white/30 border-white/70 resize-none" 
             value={formData.description}
             onChange={handleChange}
             rows={4}
