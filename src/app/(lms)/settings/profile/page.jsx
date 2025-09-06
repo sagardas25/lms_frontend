@@ -15,9 +15,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Mail, Upload, Save, CheckCircle2 } from "lucide-react";
+import { User, Mail, Upload, Save, CheckCircle2, Box } from "lucide-react";
 import { toast } from "sonner";
 import Sidebar from "@/components/Sidebar";
+import { Boxes } from "@/components/ui/background-boxes.jsx";
 
 export default function ProfileSettingsPage() {
   const router = useRouter();
@@ -100,20 +101,20 @@ export default function ProfileSettingsPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-background">
+    <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
       <Sidebar />
 
       {/* Main Content */}
-      <main className="flex-1 p-6 pb-0 space-y-6 mt-18 max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-foreground mb-4">
+      <main className="flex-1 p-6 pb-0 space-y-6 mt-18 max-w-4xl mx-auto ">
+        <h1 className="text-3xl font-bold text-foreground mb-4 z-10">
           Edit Profile
         </h1>
-        <p className="text-muted-foreground mb-6">
+        <p className="text-muted-foreground mb-6 z-10">
           Update your personal information and profile picture
         </p>
 
-        <Card className="shadow-lg border border-border/50">
+        <Card className=" border  bg-gray-100 shadow-2xl">
           <CardContent className="space-y-6">
             {/* Avatar Upload */}
             <div className="flex items-center gap-4">

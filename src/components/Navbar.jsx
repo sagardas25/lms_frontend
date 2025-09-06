@@ -5,13 +5,14 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
 import { Button } from "./ui/button";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Menu, X } from "lucide-react";
+import { Menu, X, GraduationCap } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 export default function Navbar() {
@@ -80,7 +81,7 @@ export default function Navbar() {
         <div className="fixed inset-0 bg-background/30 backdrop-blur-sm z-40 md:hidden" />
       )}
 
-      <header className="bg-background border-b shadow-sm fixed top-0 left-0 right-0 bg-gradient-to-br  from-blue-50 to-slate-100 z-50 group">
+      <header className="bg-background border-b shadow-sm  top-0 left-0 right-0 bg-gradient-to-br  from-blue-50 to-slate-100 backdrop-blur-md sticky z-50 group">
         {isAuthOrHomeRoute && (
           <>
             <div className="absolute top-[-6rem] left-[-6rem] w-[30rem] h-[30rem] bg-[#1E3A8A]   opacity-10 rounded-full blur-[120px] mix-blend-multiply animate-blob transition duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-60"></div>
@@ -91,7 +92,10 @@ export default function Navbar() {
         <nav className="max-w-screen-xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between relative">
           {/* Logo */}
           <Link href="/" className="text-2xl font-bold text-primary">
-            LMS Platform
+            <div className="flex items-center gap-2">
+              <GraduationCap className="h-8 w-8 text-primary" />
+              <span className="text-xl font-bold text-foreground">EduHub</span>
+            </div>
           </Link>
 
           {/* Mobile Toggle */}
@@ -112,7 +116,7 @@ export default function Navbar() {
             <NavLink href="/" label="Home" />
             <NavLink href="/course" label="Courses" />
 
-            {!loading && user  && (
+            {!loading && user && (
               <NavLink href="/dashboard" label="dashboard" />
             )}
 
@@ -157,10 +161,7 @@ export default function Navbar() {
                     </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  align="start"
-                  className="z-[60] mt-2"
-                >
+                <DropdownMenuContent align="start" className="z-[60] mt-2">
                   <DropdownMenuItem
                     onClick={() => {
                       if (user.role === "instructor") {

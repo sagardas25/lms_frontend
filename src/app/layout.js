@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar.jsx";
 import { Toaster } from "sonner";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -17,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
-        <main className="min-h-screen">
+        <main className="min-h-screen ">
           {children}
           <Toaster richColors closeButton />
         </main>
