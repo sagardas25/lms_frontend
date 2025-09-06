@@ -110,14 +110,14 @@ export default function Navbar() {
             } md:flex flex-col  md:flex-row md:items-center gap-4 md:gap-6 absolute md:static top-16 left-0 w-full md:w-auto  px-6 md:px-0 py-4 md:py-0 shadow md:shadow-none transition-all duration-300 z-50`}
           >
             <NavLink href="/" label="Home" />
-            <NavLink href="/student/course" label="Courses" />
+            <NavLink href="/course" label="Courses" />
 
-            {!loading && user?.role === "instructor" && (
-              <NavLink href="/instructor/dashboard" label="Instructor" />
+            {!loading && user  && (
+              <NavLink href="/dashboard" label="dashboard" />
             )}
 
             {!loading && user?.role === "admin" && (
-              <NavLink href="/admin/all-students" label="Admin" />
+              <NavLink href="admin/all-students" label="Admin" />
             )}
 
             {!loading && !user && (

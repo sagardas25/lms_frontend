@@ -1,263 +1,195 @@
-"use client"
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { 
-  BookOpen, 
-  Users, 
-  Trophy, 
-  Clock, 
-  Star, 
-  Play, 
-  Plus,
-  Settings,
-  LogOut,
-  Award
-} from "lucide-react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
+"use client";
 
-export default function DashboardPage() {
-  const router = useRouter()
-  const [user, setUser] = useState(null)
-  const [courses, setCourses] = useState([])
-  const [stats, setStats] = useState({})
-  const [loading, setLoading] = useState(true)
+import { useEffect, useState } from "react";
+import axios from "axios";
+import {
+  BookOpen,
+  Play,
+  CheckCircle2,
+  Award,
+  ChevronRight,
+  Clock,
+} from "lucide-react";
+import Sidebar from "@/components/Sidebar";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+
+export default function StudentDashboard() {
+  const [stats, setStats] = useState(null);
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [coursesData, setCoursesData] = useState([]);
 
   useEffect(() => {
-    fetchDashboardData()
-  }, [])
-
-  const fetchDashboardData = async () => {
-    try {
-      // Mock data for now
-      const mockUser = {
-        _id: "1",
-        fullName: "John Doe",
-        email: "john@example.com",
-        avatar: null,
-        role: "student"
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8050/api/v1/user/current-user-profile",
+          { withCredentials: true }
+        );
+        setStats(res.data?.data);
+        setEnrolledCourses(res.data?.data?.enrolledCourses || []);
+      } catch (err) {
+        setStats(null);
       }
-      
-      const mockCourses = [
-        {
-          _id: "1",
-          title: "React Fundamentals",
-          subtitle: "Learn React from scratch",
-          progress: 75,
-          instructor: "Jane Smith",
-          rating: 4.8,
-          duration: "8 hours"
-        },
-        {
-          _id: "2", 
-          title: "Node.js Backend Development",
-          subtitle: "Build robust APIs with Node.js",
-          progress: 45,
-          instructor: "Mike Johnson",
-          rating: 4.6,
-          duration: "12 hours"
-        }
-      ]
+    };
 
-      const mockStats = {
-        enrolledCourses: 5,
-        completedCourses: 2,
-        totalHours: 24,
-        certificates: 1
+    if (!stats) fetchUser();
+  }, [stats]);
+
+  useEffect(() => {
+    const fetchAllCourses = async () => {
+      try {
+        const data = await Promise.all(
+          enrolledCourses.map(async (courseItem) => {
+            const res = await axios.get(
+              `http://localhost:8050/api/v1/course/c/${courseItem.course}`,
+              { withCredentials: true }
+            );
+            return res.data.data;
+          })
+        );
+        setCoursesData(data);
+      } catch (err) {
+        console.error("Error fetching courses:", err);
       }
+    };
 
-      setUser(mockUser)
-      setCourses(mockCourses)
-      setStats(mockStats)
-    } catch (err) {
-      console.error("Failed to fetch dashboard data:", err)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleLogout = async () => {
-    try {
-      router.push("/login")
-    } catch (err) {
-      console.error("Logout failed:", err)
-    }
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-primary/5 flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
-      </div>
-    )
-  }
+    if (enrolledCourses.length > 0) fetchAllCourses();
+  }, [enrolledCourses]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-primary/5 p-4">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] animate-pulse"></div>
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-secondary/5 to-primary/5 rounded-full blur-3xl animate-float" style={{ animationDelay: "1s" }}></div>
-      </div>
+    <div className="flex min-h-screen bg-background">
+      {/* Sidebar */}
+      <Sidebar />
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+      {/* Main Content */}
+      <main className="flex-1 p-6 space-y-6 mt-20">
+        <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold gradient-text">Welcome back, {user?.fullName?.split(' ')[0]}!</h1>
-            <p className="text-muted-foreground mt-2">Continue your learning journey</p>
+            <h1 className="text-3xl font-bold text-foreground">
+              Welcome back, {stats?.fullName?.split(" ")[0] || "Student"}!
+            </h1>
+            <p className="text-muted-foreground mt-1">
+              Ready to continue your learning journey?
+            </p>
           </div>
-          <div className="flex items-center space-x-4">
-            <Link href="/settings/profile">
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
-                <Settings className="h-4 w-4 mr-2" />
-                Settings
-              </Button>
-            </Link>
-            <div className="flex items-center space-x-2">
-              <Avatar className="w-8 h-8">
-                <AvatarImage src={user?.avatar || ""} alt={user?.fullName} />
-                <AvatarFallback className="bg-gradient-to-r from-primary to-secondary text-primary-foreground text-sm">
-                  {user?.fullName?.charAt(0) || "U"}
-                </AvatarFallback>
-              </Avatar>
-              <span className="text-sm font-medium">{user?.fullName}</span>
-            </div>
-            <Button variant="ghost" size="sm" onClick={handleLogout} className="text-muted-foreground hover:text-destructive">
-              <LogOut className="h-4 w-4" />
-            </Button>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Clock className="h-4 w-4" />
+            Last login: 2 hours ago
           </div>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="border-2 border-border/50 shadow-2xl bg-card/95 backdrop-blur-sm hover:scale-105 transition-transform">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Enrolled Courses</CardTitle>
-              <BookOpen className="h-4 w-4 text-primary" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.enrolledCourses}</div>
-              <p className="text-xs text-muted-foreground">Active courses</p>
+        {/* Quick Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Card>
+            <CardContent className="p-6 flex justify-between items-center">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Enrolled Courses
+                </p>
+                <p className="text-2xl font-bold text-foreground">
+                  {stats?.totalEnrolledCourses || 0}
+                </p>
+              </div>
+              <BookOpen className="h-8 w-8 text-primary" />
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-border/50 shadow-2xl bg-card/95 backdrop-blur-sm hover:scale-105 transition-transform">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Completed</CardTitle>
-              <Trophy className="h-4 w-4 text-primary" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.completedCourses}</div>
-              <p className="text-xs text-muted-foreground">Courses finished</p>
+          <Card>
+            <CardContent className="p-6 flex justify-between items-center">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Completed Courses
+                </p>
+                <p className="text-2xl font-bold text-foreground">
+                  {stats?.completed || "-"}
+                </p>
+              </div>
+              <CheckCircle2 className="h-8 w-8 text-chart-4" />
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-border/50 shadow-2xl bg-card/95 backdrop-blur-sm hover:scale-105 transition-transform">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Learning Hours</CardTitle>
-              <Clock className="h-4 w-4 text-primary" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.totalHours}</div>
-              <p className="text-xs text-muted-foreground">Hours invested</p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-2 border-border/50 shadow-2xl bg-card/95 backdrop-blur-sm hover:scale-105 transition-transform">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Certificates</CardTitle>
-              <Award className="h-4 w-4 text-primary" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.certificates}</div>
-              <p className="text-xs text-muted-foreground">Achievements</p>
+          <Card>
+            <CardContent className="p-6 flex justify-between items-center">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Certificates
+                </p>
+                <p className="text-2xl font-bold text-foreground">
+                  {stats?.completed || "-"}
+                </p>
+              </div>
+              <Award className="h-8 w-8 text-accent" />
             </CardContent>
           </Card>
         </div>
 
-        {/* My Courses */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">My Courses</h2>
-            <Link href="/courses">
-              <Button variant="outline" size="sm">
-                Browse All
-              </Button>
-            </Link>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            {courses.map((course) => (
-              <Card key={course._id} className="border-2 border-border/50 shadow-xl bg-card/95 backdrop-blur-sm hover:shadow-2xl transition-all">
-                <CardContent className="p-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-20 h-20 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg flex items-center justify-center">
-                      <BookOpen className="h-8 w-8 text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <h3 className="font-semibold text-lg mb-1">{course.title}</h3>
-                          <p className="text-muted-foreground text-sm mb-2">{course.subtitle}</p>
-                          <div className="flex items-center space-x-4 text-xs text-muted-foreground">
-                            <span className="flex items-center">
-                              <Users className="h-3 w-3 mr-1" />
-                              {course.instructor}
-                            </span>
-                            <span className="flex items-center">
-                              <Star className="h-3 w-3 mr-1" />
-                              {course.rating}
-                            </span>
-                            <span className="flex items-center">
-                              <Clock className="h-3 w-3 mr-1" />
-                              {course.duration}
-                            </span>
-                          </div>
-                        </div>
-                        <Badge variant="secondary" className="ml-2">
-                          {course.progress}% Complete
-                        </Badge>
+        {/* Current Courses */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BookOpen className="h-5 w-5" /> Current Courses
+            </CardTitle>
+            <CardDescription>Continue your learning progress</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {coursesData.length > 0 ? (
+              coursesData.slice(0, 3).map((course, idx) => {
+                // will add later with proper backend
+                const totalLectures = course.sections.reduce(
+                  (sum, section) => sum + section.lectures.length,
+                  0
+                );
+                const progress = course.progress || 0;
+
+                return (
+                  <div
+                    key={idx}
+                    className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                        <BookOpen className="h-6 w-6 text-primary" />
                       </div>
-                      
-                      <div className="mt-4">
-                        <div className="flex items-center justify-between text-sm mb-1">
-                          <span>Progress</span>
-                          <span>{course.progress}%</span>
+                      <div>
+                        <h3 className="font-semibold text-foreground">
+                          {course.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          {course.instructor?.fullName 
+                            }
+                        </p>
+                        <div className="flex items-center gap-2 mt-1">
+                          <Progress value={progress} className="w-24 h-2" />
+                          <span className="text-xs text-muted-foreground">
+                            {progress}%
+                          </span>
                         </div>
-                        <div className="w-full bg-muted rounded-full h-2">
-                          <div 
-                            className="bg-gradient-to-r from-primary to-secondary h-2 rounded-full transition-all"
-                            style={{ width: `${course.progress}%` }}
-                          ></div>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center space-x-2 mt-4">
-                        <Link href={`/courses/${course._id}/learn`}>
-                          <Button size="sm" className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90">
-                            <Play className="h-3 w-3 mr-1" />
-                            Continue
-                          </Button>
-                        </Link>
-                        <Link href={`/courses/${course._id}`}>
-                          <Button variant="outline" size="sm">
-                            View Details
-                          </Button>
-                        </Link>
                       </div>
                     </div>
+                    <Button variant="ghost" size="sm">
+                      <Play className="h-4 w-4 mr-2" /> Continue
+                    </Button>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </div>
+                );
+              })
+            ) : (
+              <p className="text-gray-500">No current courses enrolled.</p>
+            )}
+
+            <Button variant="outline" className="w-full bg-transparent">
+              View All Courses <ChevronRight className="h-4 w-4 ml-2" />
+            </Button>
+          </CardContent>
+        </Card>
+      </main>
     </div>
-  )
+  );
 }
