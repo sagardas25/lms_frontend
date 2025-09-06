@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import Navbar from "@/components/Navbar.js";
+import Navbar from "@/components/Navbar.jsx";
 import { Toaster } from "sonner";
 
 
